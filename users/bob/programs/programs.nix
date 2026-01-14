@@ -9,10 +9,18 @@
     ./git/git.nix
   ];
   home.packages = with pkgs; [
-    steam
+    #Web & Media
     firefox
-    vscodium
     spotify
+
+    #Development
+    vscodium
+
+    #Graphics
     #(blender.override { cudaSupport = true; })
+
+    #Games
+    modrinth-app
+    steam
   ];
 }
