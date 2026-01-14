@@ -12,7 +12,7 @@
         enable = true;
         jvmOpts = "-Xmx4G -Xms2G";
         # Specify the custom minecraft server package
-        package = pkgs.minecraftServers.vanilla-1_21_6;
+        package = pkgs.minecraftServers.vanilla-1_21_11;
       };
     };
   };

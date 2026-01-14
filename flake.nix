@@ -19,6 +19,9 @@
       url = "github:stelcodes/bunny.yazi";
       flake = false;
     };
+
+    #Server stuff
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
   outputs = { self, nixpkgs, home-manager, ... } @inputs : {

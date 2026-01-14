@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{ pkgs, inputs, ... } : {
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
@@ -38,16 +34,6 @@
     htop
   ];
 
-  # GUI
-  # Desktop
-  #services.xserver.enable = true;
-  #services.displayManager.ly.enable = true;
-  #programs.hyprland.enable = true;
-  #nix.settings = {
-  #  substituters = ["https://hyprland.cachix.org"];
-  #  trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-  #};
-  #environment.sessionVariables.NIXOS_OZONE_WL = "1";
   # Security
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
@@ -56,7 +42,7 @@
   # Wireless & Connectivity
   # Networking
   networking = {
-    hostName = "PEXE-Server-NixOS";
+    hostName = "pexe-server_nixos_blackbox";
     interfaces = {
       enp7s0.ipv4.addresses = [{
         address = "192.168.1.4";
