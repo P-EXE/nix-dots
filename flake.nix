@@ -1,0 +1,58 @@
+{
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+    };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
+    # Programs
+    yazi.url = "github:sxyazi/yazi";
+    bunny-yazi = {
+      url = "github:stelcodes/bunny.yazi";
+      flake = false;
+    };
+  };
+
+  outputs = { self, nixpkgs, home-manager, ... } @inputs : {
+    nixosConfigurations = {
+      framework13 = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./machines/hwInfo.nix
+          ./machines/framework13/configuration.nix
+          inputs.home-manager.nixosModules.default
+        ];
+      };
+      pexe-pc = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./machines/hwInfo.nix
+          ./machines/pexe-pc/configuration.nix
+          inputs.home-manager.nixosModules.default
+        ];
+      };
+      pexe-server = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./machines/hwInfo.nix
+          ./machines/pexe-server/configuration.nix
+          inputs.home-manager.nixosModules.default
+        ];
+      };
+    };
+  };
+}
