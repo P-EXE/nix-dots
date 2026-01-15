@@ -5,6 +5,10 @@
     ./monitors.nix
     ./startup.nix
   ];
+
+  home.packages = with pkgs; [
+    hyprshot
+  ];
   
   wayland.windowManager.hyprland = {
     enable = true;

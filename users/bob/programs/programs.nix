@@ -6,21 +6,54 @@
     ./yazi/theme-archive.nix
     ./vscode/vscode.nix
     ./htop/htop.nix
+    ./btop/btop.nix
+    ./btop/theme-archive.nix
     ./git/git.nix
   ];
   home.packages = with pkgs; [
-    #Web & Media
+    # System
+    htop
+    pavucontrol
+    helvum
+    wineWowPackages.waylandFull
+    winetricks
+    wineasio
+    localsend
+
+    # Web & Media
     firefox
     spotify
+    mpv
+    mpvScripts.uosc
 
-    #Development
+    # Development
     vscodium
+    podman-desktop
 
-    #Graphics
+    # Notes & keeping
+    bitwarden-desktop
+    obsidian
+
+    # Graphics
     #(blender.override { cudaSupport = true; })
+    inkscape
+    gimp
+    rawtherapee
+    art
+    darktable
+    digikam
 
-    #Games
-    modrinth-app
+    # Games
     steam
+    (modrinth-app.overrideAttrs (oldAttrs: {
+			buildCommand = 
+				''
+					gappsWrapperArgs+=(
+						--set GDK_BACKEND x11
+						--set WEBKIT_DISABLE_DMABUF_RENDERER 1
+					)
+				''
+				+ oldAttrs.buildCommand;
+		}))
   ];
 }
