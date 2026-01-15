@@ -10,7 +10,7 @@
     admin = {
       isNormalUser = true;
       description = "Admin";
-      extraGroups = ["networkmanager" "wheel" "samba" "dialout"];
+      extraGroups = ["networkmanager" "wheel" "samba" "dialout" "podman" "docker"];
     };
     sambauser = {
       isSystemUser = true;
