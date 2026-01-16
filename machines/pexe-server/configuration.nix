@@ -1,9 +1,8 @@
 { pkgs, inputs, ... } : {
   imports = [
     ./hardware-configuration.nix
-    ./gpu.nix
+    #./gpu.nix
     ./virtualization.nix
-    inputs.home-manager.nixosModules.default
     ./programs/programs.nix
   ];
 
@@ -18,12 +17,6 @@
       isSystemUser = true;
       description = "Samba default user";
       group = "sambauser";
-    };
-  };
-  home-manager = {
-    extraSpecialArgs = {inherit inputs;};
-    users = {
-      "admin" = import ./users/admin/home.nix;
     };
   };
   users.groups = {
