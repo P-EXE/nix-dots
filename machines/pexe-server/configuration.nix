@@ -1,7 +1,8 @@
 { pkgs, inputs, ... } : {
   imports = [
     ./hardware-configuration.nix
-    inputs.home-manager.nixosModules.default
+    #./gpu.nix
+    ./virtualization.nix
     ./programs/programs.nix
   ];
 
@@ -18,12 +19,6 @@
       group = "sambauser";
     };
   };
-  home-manager = {
-    extraSpecialArgs = {inherit inputs;};
-    users = {
-      "admin" = import ./users/admin/home.nix;
-    };
-  };
   users.groups = {
     sambauser = {};
   };
@@ -35,9 +30,9 @@
   ];
 
   # Security
-  security.polkit.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.ly.enableGnomeKeyring = true;
+    #security.polkit.enable = true;
+    #services.gnome.gnome-keyring.enable = true;
+    #security.pam.services.ly.enableGnomeKeyring = true;
 
   # Wireless & Connectivity
   # Networking
@@ -88,27 +83,27 @@
 
   # Hardware dependent
   # Keyboard
-  console.keyMap = "de";
-  services.xserver.xkb.layout = "de";
-  services.xserver.xkb.variant = "";
-  # Bluetooth
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
-  # Audio
-  #hardware.pulseaudio.enable = true;
-  #hardware.pulseaudio.support32bit = true;
-  services.pipewire.enable = true;
-  services.pipewire.alsa.enable = true;
-  services.pipewire.alsa.support32Bit = true;
-  services.pipewire.pulse.enable = true;
-  services.pipewire.jack.enable = true;
-  security.rtkit.enable = true;
+    console.keyMap = "de";
+    services.xserver.xkb.layout = "de";
+    services.xserver.xkb.variant = "";
   # Drives
-  services.udisks2.enable = true;
-  services.gvfs.enable = true;
-  # Battery
-  services.upower.enable = true;
+    services.udisks2.enable = true;
+    services.gvfs.enable = true;
+  # Graphics
+    hardware.graphics.enable = true;
+  # Bluetooth
+    #hardware.bluetooth.enable = true;
+    #hardware.bluetooth.powerOnBoot = true;
+    #services.blueman.enable = true;
+  # Audio
+    #hardware.pulseaudio.enable = true;
+    #hardware.pulseaudio.support32bit = true;
+    #services.pipewire.enable = true;
+    #services.pipewire.alsa.enable = true;
+    #services.pipewire.alsa.support32Bit = true;
+    #services.pipewire.pulse.enable = true;
+    #services.pipewire.jack.enable = true;
+    #security.rtkit.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot = {

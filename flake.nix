@@ -56,9 +56,7 @@
           inherit inputs;
         };
         modules = [
-          ./machines/hwInfo.nix
           ./machines/pexe-server/configuration.nix
-          inputs.home-manager.nixosModules.default
         ];
       };
     };
