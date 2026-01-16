@@ -20,6 +20,9 @@
       flake = false;
     };
 
+    # Audio stuff
+    musnix  = { url = "github:musnix/musnix"; };
+    
     #Server stuff
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
@@ -34,6 +37,7 @@
           ./machines/hwInfo.nix
           ./machines/framework13/configuration.nix
           inputs.home-manager.nixosModules.default
+          inputs.musnix.nixosModules.musnix
         ];
       };
       pexe-pc = nixpkgs.lib.nixosSystem {
@@ -44,6 +48,7 @@
           ./machines/hwInfo.nix
           ./machines/pexe-pc/configuration.nix
           inputs.home-manager.nixosModules.default
+          inputs.musnix.nixosModules.musnix
         ];
       };
       pexe-server = nixpkgs.lib.nixosSystem {

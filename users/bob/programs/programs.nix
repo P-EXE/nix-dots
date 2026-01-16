@@ -10,7 +10,10 @@
     ./btop/theme-archive.nix
     ./git/git.nix
     ./wine.nix
+
+    ./bitwig/default.nix
   ];
+
   home.packages = with pkgs; [
     # System
     htop
@@ -43,6 +46,9 @@
     art
     darktable
     digikam
+
+    # Audio
+    #bitwig-studio5-unwrapped
 
     # Games
     steam

@@ -42,7 +42,7 @@
 # Users
   users.users.bob = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" ];
     packages = with pkgs; [
     ];
   };
@@ -111,6 +111,7 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  musnix.enable = true;
   services.fprintd.enable = true;
   systemd.services.fprintd = {
     wantedBy = [ "multi-user.target" ];
