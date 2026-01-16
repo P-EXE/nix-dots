@@ -8,6 +8,5 @@
     yabridge
     yabridgectl
 
-    #bottles
   ];
 }

@@ -10,8 +10,6 @@
     ./btop/theme-archive.nix
     ./git/git.nix
     ./wine.nix
-
-    ./bitwig/default.nix
   ];
 
   home.packages = with pkgs; [
@@ -49,6 +47,7 @@
 
     # Audio
     #bitwig-studio5-unwrapped
+    (callPackage ./bitwig/bitwig-studio.nix {})
 
     # Games
     steam
