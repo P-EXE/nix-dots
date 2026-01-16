@@ -9,6 +9,7 @@
     ./btop/btop.nix
     ./btop/theme-archive.nix
     ./git/git.nix
+    ./wine.nix
   ];
   home.packages = with pkgs; [
     # System

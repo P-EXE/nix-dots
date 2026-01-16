@@ -1,5 +1,5 @@
 { ... } : {
-  programs.btop.theme = ''
+  programs.btop.themes."archive" = ''
     theme[main_bg]="#282a36"
     theme[main_fg]="#f8f8f2"
     theme[title]="#f8f8f2"
