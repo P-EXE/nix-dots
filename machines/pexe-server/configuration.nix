@@ -1,6 +1,7 @@
 { pkgs, inputs, ... } : {
   imports = [
     ./hardware-configuration.nix
+    ./gpu.nix
     ./virtualization.nix
     inputs.home-manager.nixosModules.default
     ./programs/programs.nix
