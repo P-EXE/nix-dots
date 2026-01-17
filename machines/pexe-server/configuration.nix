@@ -1,12 +1,16 @@
 { pkgs, inputs, ... } : {
   imports = [
     ./hardware-configuration.nix
-    #./gpu.nix
     ./virtualization.nix
+    ./gpu.nix
     ./programs/programs.nix
   ];
 
   # Users
+  users.users.bob.isSystemUser = true;
+  users.users.bob.group = "bob";
+  users.groups.bob = {};
+
   users.users = {
     admin = {
       isNormalUser = true;
@@ -47,7 +51,7 @@
     defaultGateway = "192.168.1.1";
     nameservers = [ "192.168.1.1" ];
     firewall = {
-      enable = false;
+      enable = true;
       allowPing = true;
       allowedTCPPorts = [];
       allowedUDPPorts = [];
@@ -112,6 +116,7 @@
     edk2-uefi-shell.sortKey = "z_edk2";
   };
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Nix
   nix.settings.experimental-features = ["nix-command" "flakes"];
