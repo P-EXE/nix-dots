@@ -20,11 +20,11 @@
     sambauser = {
       isSystemUser = true;
       description = "Samba default user";
-      group = "sambauser";
+      group = "sambagroup";
     };
   };
   users.groups = {
-    sambauser = {};
+    sambagroup = {};
   };
 
   # Packages
@@ -41,7 +41,7 @@
   # Wireless & Connectivity
   # Networking
   networking = {
-    hostName = "pexe-server_nixos_blackbox";
+    hostName = "blackbox";
     interfaces = {
       enp7s0.ipv4.addresses = [{
         address = "192.168.1.4";
