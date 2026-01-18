@@ -107,10 +107,6 @@
     enable = true;
     package = pkgs.usbmuxd2;
   };
-  services.udiskie = {
-    enable = true;
-    automount = true;
-  };
 
   # Graphics
   hardware.graphics = {
@@ -124,6 +120,7 @@
 
 # Nix & System
   environment.systemPackages = with pkgs; [
+    udiskie
     brightnessctl
     wireguard-tools
     libimobiledevice
