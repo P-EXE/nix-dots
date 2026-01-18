@@ -8,9 +8,13 @@
   else
     "left";
   pad = if (hwInfo.primaryDisplay.resolution.x / hwInfo.primaryDisplay.resolution.y < 1.7777) then
-    "0 4px"
+    "0 ${toString (4 * hwInfo.primaryDisplay.pseudoScale)}px"
   else
-    "4px 0";
+    "${toString (4 * hwInfo.primaryDisplay.pseudoScale)}px 0";
+  side-padding = if rotation == 0 then
+    "4px ${(toString hwInfo.primaryDisplay.safezones.top-right.x)}px 4px ${(toString hwInfo.primaryDisplay.safezones.top-left.x)}px"
+  else
+    "${(toString hwInfo.primaryDisplay.safezones.top-right.x)}px 4px ${(toString hwInfo.primaryDisplay.safezones.top-left.x)}px 4px";
 in {
   programs.waybar = {
   enable = true;
@@ -25,15 +29,15 @@ in {
       "hyprland/workspaces" = {};
       "wlr/taskbar" = {
         format = "{icon}";
-        icon-size = 10;
+        icon-size = 10 * hwInfo.primaryDisplay.pseudoScale;
         tooltip-format = "{title}";
         on-click = "activate";
         on-click-middle = "close";
         rotate = rotation;
       };
       "tray" = {
-        icon-size = 10;
-        spacing = 8;
+        icon-size = 10 * hwInfo.primaryDisplay.pseudoScale;
+        spacing = 8 * hwInfo.primaryDisplay.pseudoScale;
         rotate = rotation;
       };
       "hyprland/language" = {
@@ -129,8 +133,8 @@ in {
 
     window#waybar>box {
       background: #000000;
-      font-size: 10px;
-      padding: 4px 4px
+      font-size: ${toString(10 * hwInfo.primaryDisplay.pseudoScale)}px;
+      padding: ${side-padding};
     }
 
     tooltip {

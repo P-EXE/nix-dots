@@ -34,6 +34,52 @@ display = lib.types.submodule ({ ... }: with lib; {
       type = types.float;
       default = 1;
     };
+    pseudoScale = mkOption {
+      type = types.float;
+      default = 1;
+    };
+    safezones = {
+      top-left = {
+        x = mkOption {
+          type = types.int;
+          default = 0;
+        };
+        y = mkOption {
+          type = types.int;
+          default = 0;
+        };
+      };
+      top-right = {
+        x = mkOption {
+          type = types.int;
+          default = 0;
+        };
+        y = mkOption {
+          type = types.int;
+          default = 0;
+        };
+      };
+      bottom-right = {
+        x = mkOption {
+          type = types.int;
+          default = 0;
+        };
+        y = mkOption {
+          type = types.int;
+          default = 0;
+        };
+      };
+      bottom-left = {
+        x = mkOption {
+          type = types.int;
+          default = 0;
+        };
+        y = mkOption {
+          type = types.int;
+          default = 0;
+        };
+      };
+    };
     gpu = {
       driver = mkOption {
         type = types.str;

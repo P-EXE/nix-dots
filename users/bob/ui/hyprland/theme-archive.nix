@@ -11,7 +11,7 @@
         "dwindle";
       border_size = 0;
       gaps_in = 0;
-      gaps_out = "0";
+      gaps_out = 0;
     };
     decoration = {
       rounding = 0;

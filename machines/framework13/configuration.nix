@@ -1,6 +1,7 @@
 { config, pkgs, inputs, lib, ... } : {
   imports = [
     ./hardware-configuration.nix
+    ./programs/docker.nix
     ./hyprland.nix
   ];
 
@@ -15,17 +16,21 @@
       offset.x = 0;
       offset.y = 0;
       scale = 1.0;
+      pseudoScale = 1.4;
+      safezones.top-left = {x = 24; y = 24;};
+      safezones.top-right = {x = 24; y = 24;};
     }];
   };
 
-  services.displayManager.ly = {
+  services.displayManager.sddm = {
     enable = true;
+    wayland.enable = true; 
   };
-  
+
 # Users
   users.users.bob = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" ];
     packages = with pkgs; [
     ];
   };
