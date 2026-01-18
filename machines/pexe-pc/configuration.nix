@@ -1,6 +1,7 @@
 { config, pkgs, inputs, lib, ... } : {
   imports = [
     ./hardware-configuration.nix
+    ./samba.nix
     ./virtualization.nix
     ./hyprland.nix
   ];

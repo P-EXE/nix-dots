@@ -25,6 +25,7 @@
     # Web & Media
     firefox
     spotify
+    vesktop
     mpv
     mpvScripts.uosc
 
