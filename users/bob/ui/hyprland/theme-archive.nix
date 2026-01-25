@@ -5,10 +5,7 @@
 
   wayland.windowManager.hyprland.settings = {
     general = {
-      layout = if (hwInfo.primaryDisplay.resolution.x / hwInfo.primaryDisplay.resolution.y < 1.7777) then
-        "master"
-      else
-        "dwindle";
+      layout = "dwindle";
       border_size = 0;
       gaps_in = 0;
       gaps_out = 0;

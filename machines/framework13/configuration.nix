@@ -1,7 +1,7 @@
 { config, pkgs, inputs, lib, ... } : {
   imports = [
     ./hardware-configuration.nix
-    ./programs/docker.nix
+    ./virtualization.nix
     ./hyprland.nix
   ];
 
