@@ -59,5 +59,6 @@
 				''
 				+ oldAttrs.buildCommand;
 		}))
+    jdk21_headless
   ];
 }

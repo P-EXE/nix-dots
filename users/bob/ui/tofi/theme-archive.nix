@@ -1,4 +1,4 @@
-{ pkgs, ... } : {
+{ pkgs, hwInfo, ... } : {
   home.packages = with pkgs; [
     jetbrains-mono
   ];
@@ -15,7 +15,7 @@
     font = "JetBrains Mono";
     font-variations = "wght 900";
     font-features = "ss08 on";
-    font-size = 64;
+    font-size = "${toString (96 * hwInfo.primaryDisplay.pseudoScale)}px";
     text-color = "#FFFFFF33";
     background-color = "#000000FF";
     selection-color = "#FFFFFFE6";
