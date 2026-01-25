@@ -47,6 +47,7 @@
     };
     windowrule = [
       "no_dim on, match:class firefox"
+      "no_dim on, match:class vesktop"
       "move 100%-w-16, opacity 0.9, match:initial_title = Hyprland Polkit Agent"
     ];
     layerrule = [

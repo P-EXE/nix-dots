@@ -40,13 +40,13 @@
           inputs.musnix.nixosModules.musnix
         ];
       };
-      pexe-pc = nixpkgs.lib.nixosSystem {
+      whitebox = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
         };
         modules = [
           ./machines/hwInfo.nix
-          ./machines/pexe-pc/configuration.nix
+          ./machines/whitebox/configuration.nix
           inputs.home-manager.nixosModules.default
           inputs.musnix.nixosModules.musnix
         ];

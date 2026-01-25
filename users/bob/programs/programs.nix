@@ -17,9 +17,6 @@
     htop
     pavucontrol
     helvum
-    wineWowPackages.waylandFull
-    winetricks
-    wineasio
     localsend
 
     # Web & Media

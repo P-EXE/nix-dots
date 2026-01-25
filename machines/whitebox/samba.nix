@@ -2,7 +2,7 @@
   # For mount.cifs, required unless domain name resolution is not needed.
   environment.systemPackages = [ pkgs.cifs-utils ];
   fileSystems."/mnt/shares/blackbox/public" = {
-    device = "//server.lab.pexe.internal/public";
+    device = "//server.lab.pexe.internal/public/";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split
@@ -11,7 +11,7 @@
     in ["${automount_opts},credentials=/etc/nix-dots/secrets/samba"];
   };
   fileSystems."/mnt/shares/blackbox/private" = {
-    device = "//server.lab.pexe.internal/private";
+    device = "//server.lab.pexe.internal/private/";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split

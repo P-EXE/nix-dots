@@ -14,7 +14,7 @@
           };
       in
       {
-        inherit (nixpkgs-wine94) yabridge yabridgectl;
+        inherit (nixpkgs-wine94) yabridge yabridgectl wine;
       })
   ];
   home.packages = with pkgs; [
@@ -23,6 +23,7 @@
     #wineWowPackages.staging
     #winetricks
     #wineasio
+    wine
     yabridge
     yabridgectl
   ];

@@ -1,9 +1,13 @@
-{ ... } : {
+{ hwInfo, lib, ... } : let 
+  keyboardLayouts = lib.concatStrings (map (k: "${k.layout}, ") hwInfo.keyboards);
+in
+ {
   wayland.windowManager.hyprland.settings = {
   # Keybinds
   "$mod" = "Super";
   "$mod_l" = "Super_L";
   input = {
+    kb_layout = "de, " + keyboardLayouts;
     kb_options = "grp:alt_space_toggle";
     repeat_rate = 25;
     repeat_delay = 300;

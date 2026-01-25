@@ -30,6 +30,9 @@
         scale = 1.0;
       }
     ];
+    keyboards = [
+      { layout = "us"; }
+    ];
   };
   
   security.polkit.enable = true;
@@ -39,6 +42,9 @@
   services.displayManager.sddm = {
     enable = true;
   };
+  services.xserver.enable = true;
+  services.windowManager.plasma6.enable = true;
+
   
 # Users
   users.users.bob = {
@@ -152,6 +158,7 @@
     wireguard-tools
     libimobiledevice
     ifuse # optional, to mount using 'ifuse'
+    mangohud
   ];
   programs.kdeconnect.enable = true;
   nixpkgs.config.allowUnfree = true;
