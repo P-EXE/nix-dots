@@ -32,11 +32,11 @@ display = lib.types.submodule ({ ... }: with lib; {
     };
     scale = mkOption {
       type = types.float;
-      default = 1;
+      default = 1.0;
     };
     pseudoScale = mkOption {
       type = types.float;
-      default = 1;
+      default = 1.0;
     };
     safezones = {
       top-left = {

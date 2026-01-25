@@ -18,6 +18,7 @@
         offset.x = 0;
         offset.y = 0;
         scale = 1.0;
+        pseudoScale = 1.0;
       }
       {
         name = "HDMI-A-1";
@@ -28,6 +29,7 @@
         offset.x = 3840;
         offset.y = -200;
         scale = 1.0;
+        pseudoScale = 1.0;
       }
     ];
     keyboards = [
@@ -42,8 +44,7 @@
   services.displayManager.sddm = {
     enable = true;
   };
-  services.xserver.enable = true;
-  services.windowManager.plasma6.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   
 # Users

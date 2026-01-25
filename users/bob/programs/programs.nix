@@ -10,6 +10,7 @@
     ./btop/theme-archive.nix
     ./git/git.nix
     ./wine.nix
+    ./audio.nix
   ];
 
   home.packages = with pkgs; [
