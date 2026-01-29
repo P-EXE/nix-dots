@@ -9,7 +9,6 @@
     ./btop/btop.nix
     ./btop/theme-archive.nix
     ./git/git.nix
-    ./wine.nix
     ./audio.nix
   ];
 

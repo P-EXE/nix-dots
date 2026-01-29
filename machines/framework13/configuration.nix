@@ -5,6 +5,8 @@
     ./hyprland.nix
   ];
 
+  musnix.enable = false;
+
   hwInfo = {
     deviceType = "laptop";
     displays = [{
@@ -22,46 +24,102 @@
     }];
   };
 
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true; 
+  # Graphical environments
+    # Requirements
+    services.xserver.enable = true;
+    # Displaymanagers
+    services.displayManager.gdm.enable = true;
+    # Desktops
+    services.desktopManager.gnome.enable = false;
+    services.desktopManager.plasma6.enable = true;
+
+  # User management
+    # Users
+    users.users.bob = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" "networkmanager" "docker" "audio" ];
+      packages = with pkgs; [];
+    };
+    # Groups
+    users.groups = {};
+    # Home-Manager
+    home-manager.users."bob" = import ../../users/bob/home.nix;
+    home-manager = {
+      extraSpecialArgs = {
+        inherit inputs;
+        hwInfo = config.hwInfo;
+      };
+      backupFileExtension = "bak5";
+    };
+
+  # Network
+  networking = {
+    hostName = "Framework-13";
+#   proxy = {
+#      default = "http://user:password@proxy:port/";
+#      noProxy = "127.0.0.1,localhost,internal.domain";
+    firewall = rec {
+      enable = false;
+      allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+      allowedUDPPortRanges = allowedTCPPortRanges;
+      checkReversePath = false;
+    };
+    networkmanager.enable = true;
   };
 
-# Users
-  users.users.bob = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" ];
-    packages = with pkgs; [
-    ];
-  };
-  home-manager = {
-    extraSpecialArgs = {
-      inherit inputs;
-      hwInfo = config.hwInfo;
-    };
-    users = {
-      "bob" = import ../../users/bob/home.nix;
-    };
-    backupFileExtension = "bak1";
-  };
+# System packages
+environment.systemPackages = with pkgs; [
+  udiskie
+  brightnessctl
+  unar
+  wireguard-tools
+  libimobiledevice
+  ifuse # optional, to mount using 'ifuse'
+];
 
-# Network
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  # KDEConnect: 1714 - 1764;
-  networking.firewall = rec {
-    enable = false;
-    allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
-    allowedUDPPortRanges = allowedTCPPortRanges;
-    checkReversePath = false;
-  };
+# Hardware, Devices & associated services
+  # Networking
   services.openssh.enable = true;
-  networking.networkmanager.enable = true;
+  services.printing.enable = true;
+  # Audio
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+    #media-session.enable = true;
+  };
+  # Fingerprint scanner
+  services.fprintd.enable = true;
+  systemd.services.fprintd = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "simple";
+  };
+  # Bluetooth
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+  # Blockdevices
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+  # USB
+  services.usbmuxd = {
+    enable = true;
+    package = pkgs.usbmuxd2;
+  };
+  # Graphics
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+  environment.variables.AMD_VULKAN_ICD = "RADV";
+  #hardware.graphics.extraPackages = with pkgs; [
+  #  amdvlk
+  #];
 
-# Locale
+  # Locale
   time.timeZone = "Europe/Vienna";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -82,81 +140,33 @@
   };
   #services.xserver.libinput.enable = true;
 
-# Graphics
-  services.xserver.enable = false;
-
-# Hardware & Devices
-  services.printing.enable = true;
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-  services.fprintd.enable = true;
-  systemd.services.fprintd = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "simple";
-  };
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-  services.gvfs.enable = true; 
-  services.udisks2.enable = true;
-  services.usbmuxd = {
-    enable = true;
-    package = pkgs.usbmuxd2;
-  };
-
-  # Graphics
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
-  environment.variables.AMD_VULKAN_ICD = "RADV";
-  #hardware.graphics.extraPackages = with pkgs; [
-  #  amdvlk
-  #];
-
-# Nix & System
-  environment.systemPackages = with pkgs; [
-    udiskie
-    brightnessctl
-    wireguard-tools
-    libimobiledevice
-    ifuse # optional, to mount using 'ifuse'
-  ];
-  nixpkgs.config.allowUnfree = true;
+  # Nix & System
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  #nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-  #programs.nix-ld.enable = true;
-# Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.grub = {
-    enable = false;
-    device = "nodev";
-    useOSProber = true;
-    efiSupport = true;
-  };
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
-  boot.loader.systemd-boot.configurationLimit = 3;
-# Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-# substituters
-  nix.settings = {
-    builders-use-substitutes = true;
-    extra-substituters = [
-    ];
-    extra-trusted-public-keys = [
-    ];
-  };
-  fonts.fontDir.enable = true;
+    # Compatability & impure stuff
+    #nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    #programs.nix-ld.enable = true;
+    fonts.fontDir.enable = true;
+    # Packages
+    nixpkgs.config.allowUnfree = true;
+      # Substituters
+      nix.settings = {
+        builders-use-substitutes = true;
+        extra-substituters = [
+        ];
+        extra-trusted-public-keys = [
+        ];
+      };
+
+  # Startup & System
+    # Bootloader
+    boot.loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      efi.efiSysMountPoint = "/boot";
+      systemd-boot.configurationLimit = 3;
+    };
+    # Kernel.
+    boot.kernelPackages = pkgs.linuxPackages_latest;
 
 # This value determines the NixOS release from which the default
 # settings for stateful data, like file locations and database versions
