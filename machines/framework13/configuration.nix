@@ -22,6 +22,9 @@
       safezones.top-left = {x = 24; y = 24;};
       safezones.top-right = {x = 24; y = 24;};
     }];
+    keyboards = [
+      { layout = "us"; }
+    ];
   };
 
   # Graphical environments
